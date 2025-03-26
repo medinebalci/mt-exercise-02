@@ -1,43 +1,31 @@
 #! /bin/bash
 
+# Convert Windows-style paths to Bash-compatible paths
 scripts=$(dirname "$0")
-base=$scripts/..
+base=$(realpath "$scripts/..")  # Ensure correct base path
 
-data=$base/data
+data="$base/data"
+tools="$base/tools"
 
-mkdir -p $data
+mkdir -p "$data"
 
-tools=$base/tools
+# Link default training data for easier access
+mkdir -p "$data/wicked"
 
-# link default training data for easier access
 
-mkdir -p $data/wikitext-2
+# Preprocess Wicked
+mkdir -p "$data/wicked/raw"
 
-for corpus in train valid test; do
-    absolute_path=$(realpath $tools/pytorch-examples/word_language_model/data/wikitext-2/$corpus.txt)
-    ln -snf $absolute_path $data/wikitext-2/$corpus.txt
-done
+if [[ -f "$data/wicked/raw/wicked.txt" ]]; then
+    cat "$data/wicked/raw/wicked.txt" | python "$base/scripts/preprocess_raw.py" > "$data/wicked/raw/wicked.cleaned.txt"
 
-# download a different interesting data set!
+    # Tokenize and preprocess
+    cat "$data/wicked/raw/littlewomen.cleaned.txt" | python "$base/scripts/preprocess.py" --vocab-size 5000 --tokenize --lang "en" --sent-tokenize > "$data/littlewomen/raw/littlewomen.preprocessed.txt"
 
-mkdir -p $data/grimm
-
-mkdir -p $data/grimm/raw
-
-wget https://www.gutenberg.org/files/52521/52521-0.txt
-mv 52521-0.txt $data/grimm/raw/tales.txt
-
-# preprocess slightly
-
-cat $data/grimm/raw/tales.txt | python $base/scripts/preprocess_raw.py > $data/grimm/raw/tales.cleaned.txt
-
-# tokenize, fix vocabulary upper bound
-
-cat $data/grimm/raw/tales.cleaned.txt | python $base/scripts/preprocess.py --vocab-size 5000 --tokenize --lang "en" --sent-tokenize > \
-    $data/grimm/raw/tales.preprocessed.txt
-
-# split into train, valid and test
-
-head -n 440 $data/grimm/raw/tales.preprocessed.txt | tail -n 400 > $data/grimm/valid.txt
-head -n 840 $data/grimm/raw/tales.preprocessed.txt | tail -n 400 > $data/grimm/test.txt
-tail -n 3075 $data/grimm/raw/tales.preprocessed.txt | head -n 2955 > $data/grimm/train.txt
+    # Split into train, valid, and test
+    head -n 440 "$data/wicked/raw/wicked.preprocessed.txt" | tail -n 400 > "$data/wicked/valid.txt"
+    head -n 840 "$data/wicked/raw/wicked.preprocessed.txt" | tail -n 400 > "$data/wicked/test.txt"
+    tail -n 3075 "$data/wicked/raw/wicked.preprocessed.txt" | head -n 2955 > "$data/wicked/train.txt"
+else
+    echo "Error: The file wicked.txt does not exist in $data/wicked/raw/"
+fi

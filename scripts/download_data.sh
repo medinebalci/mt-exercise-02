@@ -20,7 +20,7 @@ if [[ -f "$data/wicked/raw/wicked.txt" ]]; then
     cat "$data/wicked/raw/wicked.txt" | python "$base/scripts/preprocess_raw.py" > "$data/wicked/raw/wicked.cleaned.txt"
 
     # Tokenize and preprocess
-    cat "$data/wicked/raw/littlewomen.cleaned.txt" | python "$base/scripts/preprocess.py" --vocab-size 5000 --tokenize --lang "en" --sent-tokenize > "$data/littlewomen/raw/littlewomen.preprocessed.txt"
+    cat "$data/wicked/raw/wicked.cleaned.txt" | python "$base/scripts/preprocess.py" --vocab-size 5000 --tokenize --lang "en" --sent-tokenize > "$data/littlewomen/raw/littlewomen.preprocessed.txt"
 
     # Split into train, valid, and test
     head -n 440 "$data/wicked/raw/wicked.preprocessed.txt" | tail -n 400 > "$data/wicked/valid.txt"

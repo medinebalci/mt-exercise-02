@@ -1,7 +1,8 @@
 #! /bin/bash
 
 scripts=$(dirname "$0")
-base=$(realpath $scripts/..)
+base=$(cd "$scripts/.." && pwd)
+
 
 models=$base/models
 data=$base/data
@@ -13,9 +14,9 @@ mkdir -p $samples
 num_threads=4
 device=""
 
-(cd $tools/pytorch-examples/word_language_model &&
+(cd $tools/pytorch-examples/word_language_model&&
     CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python generate.py \
-        --data $data/wicked \
+        --data $data\wicked \
         --words 100 \
         --checkpoint $models/model.pt \
         --outf $samples/sample

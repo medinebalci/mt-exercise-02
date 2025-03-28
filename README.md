@@ -28,10 +28,12 @@ Download and install required software:
     ./scripts/install_packages.sh
 
 Download and preprocess data:
+There is a littlewomen.txt in \data since I had to manually download it. The txt file is in the folder \data\littlewomen\raw
 
     ./scripts/download_data.sh
 
 Train a model:
+Changed the folder name to littlewomen
 
     ./scripts/train.sh
 

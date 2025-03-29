@@ -14,10 +14,10 @@ mkdir -p $samples
 num_threads=4
 device=""
 
-(cd $tools/pytorch-examples/word_language_model&&
+(cd $scripts/tools/pytorch-examples/word_language_model&&
     CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python generate.py \
-        --data $data\wicked \
+        --data $data\littlewomen \
         --words 100 \
-        --checkpoint $models/model.pt \
+        --checkpoint $models/best_model.pt \
         --outf $samples/sample
 )

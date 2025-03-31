@@ -13,7 +13,7 @@ mkdir -p "$data"
 mkdir -p "$data/littlewomen"
 
 
-# Preprocess Wicked
+# Preprocess Little Women
 mkdir -p "$data/littlewomen/raw"
 
 if [[ -f "$data/littlewomen/raw/littlewomen.txt" ]]; then

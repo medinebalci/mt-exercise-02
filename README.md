@@ -43,7 +43,7 @@ I ran training manually with the main.py since train.sh didn't work on my Window
 
 Added a --logfile argument in main.py so you can save the training data in perplexity_log.
 
-Calculate perplexities at each epoch and compare/save the best and worst models. 
+Modified the main.py to calculate perplexities at each epoch and compare/save the best and worst models. 
 
 Plot models of training, test and validation perplexities with:
 

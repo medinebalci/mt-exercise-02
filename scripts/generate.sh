@@ -16,8 +16,8 @@ device=""
 
 (cd $scripts/tools/pytorch-examples/word_language_model&&
     CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python generate.py \
-        --data $data\littlewomen \
+        --data $data/littlewomen \
         --words 100 \
-        --checkpoint $models/best_model.pt \
-        --outf $samples/sample
+        --checkpoint $models/worst_model.pt \
+        --outf $samples/worst_sample
 )

@@ -28,7 +28,7 @@ Download and install required software:
     ./scripts/install_packages.sh
 
 Download and preprocess data:
-There is a littlewomen.txt in \data since I had to manually download it. The txt file is in the folder \data\littlewomen\raw
+There is a littlewomen.txt in ./data/littlewomen/raw since I had to manually download it.
 
     ./scripts/download_data.sh
 
@@ -38,6 +38,16 @@ Changed the folder name to littlewomen
     ./scripts/train.sh
 
 The training process can be interrupted at any time, and the best checkpoint will always be saved.
+
+I ran training manually with the main.py since train.sh didn't work on my Windows laptop. I used the flags to denote the dropouts. 
+
+Added a --logfile argument in main.py so you can save the training data in perplexity_log.
+
+Calculate perplexities at each epoch and compare/save the best and worst models. 
+
+Plot models of training, test and validation perplexities with:
+
+    python ./scripts/tools/pytorch-examples/word_language_model/plot_perplexity.py
 
 Generate (sample) some text from a trained model with:
 

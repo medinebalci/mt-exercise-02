@@ -18,6 +18,6 @@ device=""
     CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python generate.py \
         --data $data/littlewomen \
         --words 100 \
-        --checkpoint $models/worst_model.pt \
-        --outf $samples/worst_sample
+        --checkpoint $models/model.pt \
+        --outf $samples/sample
 )

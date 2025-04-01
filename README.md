@@ -53,4 +53,5 @@ Generate (sample) some text from a trained model with:
 
     ./scripts/generate.sh
 
+I wasn't able to generate samples from worst_model.pt and best_model.pt.
 
